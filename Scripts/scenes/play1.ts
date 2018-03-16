@@ -1,5 +1,5 @@
 module scenes {
-  export class PlayScene extends objects.Scene {
+  export class PlayScene1 extends objects.Scene {
     // Private Instance Variables
     // Public Properties
     public _terrain1: objects.Terrain;
@@ -91,7 +91,7 @@ module scenes {
 
       // If lives fall below 0 swith to game over scene
       if(this._newTank1.health <= 0 || this._newTank2.health <= 0){
-        objects.Game.currentScene = config.Scene.OVER;
+        objects.Game.currentScene = config.Scene.PLAY2;
       }
 
     }
@@ -131,7 +131,8 @@ module scenes {
       // add the tank to the scene
       this.addChild(this._newTank1);
       this.addChild(this._newTank2);
-      createjs.Sound.play("battle");
+      createjs.Sound.play("battle",{loop:-1});
+      
     }
 
     private setLabyrinth(tp :number = 1):void{

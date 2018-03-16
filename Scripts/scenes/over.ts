@@ -16,7 +16,7 @@ module scenes {
 
     // Private Mathods
     private _backButtonClick():void {
-      objects.Game.currentScene = config.Scene.PLAY;
+      objects.Game.currentScene = config.Scene.PLAY1;
     }
 
 

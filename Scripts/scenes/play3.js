@@ -10,10 +10,10 @@ var __extends = (this && this.__extends) || (function () {
 })();
 var scenes;
 (function (scenes) {
-    var PlayScene = /** @class */ (function (_super) {
-        __extends(PlayScene, _super);
+    var PlayScene3 = /** @class */ (function (_super) {
+        __extends(PlayScene3, _super);
         // Constructor
-        function PlayScene(assetManager) {
+        function PlayScene3(assetManager) {
             var _this = _super.call(this, assetManager) || this;
             _this.Start();
             return _this;
@@ -21,7 +21,7 @@ var scenes;
         // Private Mathods
         // Public Methods
         // Initialize Game Variables and objects
-        PlayScene.prototype.Start = function () {
+        PlayScene3.prototype.Start = function () {
             // Terrain to cover the canvas (It is temporally)
             this._terrain1 = new objects.Terrain(this.assetManager);
             this._terrain2 = new objects.Terrain(this.assetManager);
@@ -58,7 +58,7 @@ var scenes;
             this._scoreBoard.setScore(this._newTank1.score, this._newTank2.score);
             this.Main();
         };
-        PlayScene.prototype.Update = function () {
+        PlayScene3.prototype.Update = function () {
             // this.supportLabels();
             this._newTank1.UpdateTank();
             this._newTank2.UpdateTank();
@@ -74,7 +74,7 @@ var scenes;
             }
         };
         // This is where the fun happens
-        PlayScene.prototype.Main = function () {
+        PlayScene3.prototype.Main = function () {
             var _this = this;
             this.addChild(this._terrain1);
             this.addChild(this._terrain2);
@@ -102,9 +102,9 @@ var scenes;
             // add the tank to the scene
             this.addChild(this._newTank1);
             this.addChild(this._newTank2);
-            createjs.Sound.play("battle");
+            createjs.Sound.play("battle", { loop: -1 });
         };
-        PlayScene.prototype.setLabyrinth = function (tp) {
+        PlayScene3.prototype.setLabyrinth = function (tp) {
             if (tp === void 0) { tp = 1; }
             var barrier = new objects.Barrier(this.assetManager, -100, -100);
             var width = barrier.getBounds().width;
@@ -175,7 +175,7 @@ var scenes;
                 this._labyrinth.push(new objects.Barrier(this.assetManager, next_x += width, next_y));
             }
         };
-        PlayScene.prototype.setLabyrinth2 = function (tp) {
+        PlayScene3.prototype.setLabyrinth2 = function (tp) {
             var _this = this;
             if (tp === void 0) { tp = 1; }
             var quadrant_width = 46;
@@ -214,8 +214,8 @@ var scenes;
                 line_counter++;
             });
         };
-        return PlayScene;
+        return PlayScene3;
     }(objects.Scene));
-    scenes.PlayScene = PlayScene;
+    scenes.PlayScene3 = PlayScene3;
 })(scenes || (scenes = {}));
-//# sourceMappingURL=play.js.map
+//# sourceMappingURL=play3.js.map

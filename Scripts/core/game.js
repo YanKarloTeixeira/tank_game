@@ -60,8 +60,14 @@
             case config.Scene.START:
                 currentScene = new scenes.StartScene(assetManager);
                 break;
-            case config.Scene.PLAY:
-                currentScene = new scenes.PlayScene(assetManager);
+            case config.Scene.PLAY1:
+                currentScene = new scenes.PlayScene1(assetManager);
+                break;
+            case config.Scene.PLAY2:
+                currentScene = new scenes.PlayScene2(assetManager);
+                break;
+            case config.Scene.PLAY3:
+                currentScene = new scenes.PlayScene3(assetManager);
                 break;
             case config.Scene.OVER:
                 currentScene = new scenes.OverScene(assetManager);
