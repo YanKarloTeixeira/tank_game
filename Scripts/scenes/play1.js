@@ -181,36 +181,111 @@ var scenes;
             var tile_width = 30;
             var tile_height = 30;
             var labyrinth = new Array();
-            //                       1         2         3         4
-            //              123456789012345678901234567890123456789012345678
-            labyrinth.push("                                              ");
-            labyrinth.push("                                              ");
-            labyrinth.push("  1111111111111   1111111111111  11111111111  ");
-            labyrinth.push("  1                           1  1         1  ");
-            labyrinth.push("  1                           1  1  11111  1  ");
-            labyrinth.push("  1  1  11111111111111111     1  1  1   1  1  ");
-            labyrinth.push("  1  1          1             1  1  1      1  ");
-            labyrinth.push("  1  1          1             1  1  1   1  1  ");
-            labyrinth.push("  1  11111      1      11111  1  1  1   1  1  ");
-            labyrinth.push("     1       1111111                1   1     ");
-            labyrinth.push("     1          1                   1   1     ");
-            labyrinth.push("     1          1             1  1  1   1  1  ");
-            labyrinth.push("  1  1  111111     111111     1  1  1   1  1  ");
-            labyrinth.push("  1  1                        1  1  1   1  1  ");
-            labyrinth.push("  1  1                        1  1  1   1  1  ");
-            labyrinth.push("  1  1  11111111111111111     1  1      1  1  ");
-            labyrinth.push("  1                           1  1  11111  1  ");
-            labyrinth.push("  1                           1  1         1  ");
-            labyrinth.push("  1111111111111   1111111111111  11111111111  ");
-            labyrinth.push("  1111111111111   1111111111111  11111111111  ");
-            labyrinth.push("  1111111111111   1111111111111  11111111111  ");
-            labyrinth.push("  1111111111111   1111111111111  11111111111  ");
-            labyrinth.push("  1111111111111   1111111111111  11111111111  ");
-            labyrinth.push("  1111111111111   1111111111111  11111111111  ");
-            labyrinth.push("                                              ");
-            labyrinth.push("  1111111111111   1111111111111  11111111111  ");
-            //              123456789012345678901234567890123456789012345678
-            //                       1         2         3         4
+            switch (tp) {
+                case 1:
+                    //                       1         2         3         4
+                    //              123456789012345678901234567890123456789012345678
+                    labyrinth.push(" ");
+                    labyrinth.push(" ");
+                    labyrinth.push("  11111   11111  11 11  11111  11111  11111  11111");
+                    labyrinth.push("  1       1   1  1 1 1  1   1      1  1   1  1     ");
+                    labyrinth.push("  1       1   1  1   1  11111  11111  11111  11111");
+                    labyrinth.push("  1       1   1  1   1  1          1      1      1");
+                    labyrinth.push("  11111   11111  1   1  1      11111  11111  11111");
+                    labyrinth.push("");
+                    labyrinth.push("");
+                    labyrinth.push("  1     1  111111  11111  11111  1  11111  11111  ");
+                    labyrinth.push("  1     1  1    1  1   1  1   1  1  1   1  1   1  ");
+                    labyrinth.push("  1  1  1  111111  11111  11111  1  1   1  11111  ");
+                    labyrinth.push("  1 111 1  1    1  1  1   1  1   1  1   1  1  1   ");
+                    labyrinth.push("  1111111  1    1  1   1  1   1  1  11111  1   1  ");
+                    labyrinth.push(" ");
+                    labyrinth.push("    1111111  1111111  1111111  1        1111111   ");
+                    labyrinth.push("    1        1     1  1        1        1         ");
+                    labyrinth.push("    1111111  1111111  1  1111  1        1111111   ");
+                    labyrinth.push("    1        1     1  1     1  1        1         ");
+                    labyrinth.push("    1111111  1     1  1111111  1111111  1111111   ");
+                    labyrinth.push(" ");
+                    labyrinth.push("       11111  1   1  1      11111  11111   11  ");
+                    labyrinth.push("       1   1  1   1  1      1      1       11  ");
+                    labyrinth.push("       11111  1   1  1      11111  11111   11  ");
+                    labyrinth.push("       1  1   1   1  1      1          1       ");
+                    labyrinth.push("       1   1  11111  11111  11111  11111   11  ");
+                    //              123456789012345678901234567890123456789012345678
+                    //                       1         2         3         4
+                    break;
+                case 2:
+                    //                       1         2         3         4
+                    //              123456789012345678901234567890123456789012345678
+                    labyrinth.push(" ");
+                    labyrinth.push(" ");
+                    labyrinth.push("        111111111  111111111  1111 1111           ");
+                    labyrinth.push("            11     11     11  11 111 11           ");
+                    labyrinth.push("  111111    11     11     11  11  1  11  1111111  ");
+                    labyrinth.push("  111111    11     11     11  11     11  1111111  ");
+                    labyrinth.push("            11     111111111  11     11           ");
+                    labyrinth.push("");
+                    labyrinth.push("");
+                    labyrinth.push("     111111  111111    111111  11  11  111111     ");
+                    labyrinth.push("       11    11          11    11  11  1          ");
+                    labyrinth.push("       11    111111      11    111111  111111     ");
+                    labyrinth.push("       11        11      11    11  11  1          ");
+                    labyrinth.push("     111111  111111      11    11  11  111111     ");
+                    labyrinth.push("");
+                    labyrinth.push(" ");
+                    labyrinth.push("    1111111111   11       11  111       111   111 ");
+                    labyrinth.push("    11           11       11   11       11    111 ");
+                    labyrinth.push("    11  1111111  11       11   11111111111    111 ");
+                    labyrinth.push("    11       11  11       11        11            ");
+                    labyrinth.push("    11111111111  11111111111        11        111 ");
+                    labyrinth.push(" ");
+                    labyrinth.push("  1111111111111111111111111111111111111111111111  ");
+                    labyrinth.push(" ");
+                    labyrinth.push(" ");
+                    labyrinth.push("111111111111111111111      11111111111111111111111");
+                    //              123456789012345678901234567890123456789012345678
+                    //                       1         2         3         4
+                    break;
+                case 3:
+                    //                       1         2         3         4
+                    //              123456789012345678901234567890123456789012345678
+                    labyrinth.push(" ");
+                    labyrinth.push(" ");
+                    labyrinth.push("         1111           1111  1111111111         ");
+                    labyrinth.push("         1111           1111  1111               ");
+                    labyrinth.push("  1111   1111           1111  1111111111  1111   ");
+                    labyrinth.push("         1111    111    1111  1111               ");
+                    labyrinth.push("          1111   111   1111   1111               ");
+                    labyrinth.push("            1111111111111     1111111111         ");
+                    labyrinth.push(" ");
+                    // labyrinth.push("                111111111111111111              ")
+                    // labyrinth.push("                111111111111111111              ")
+                    // labyrinth.push("                      111111                    ")
+                    // labyrinth.push("                      111111                    ")
+                    // labyrinth.push("                      111111                    ")
+                    // labyrinth.push("                111111111111111111              ")
+                    // labyrinth.push("                111111111111111111              ")
+                    // labyrinth.push("")
+                    labyrinth.push("");
+                    labyrinth.push("                  11111    11111                ");
+                    labyrinth.push("                111111111111111111              ");
+                    labyrinth.push("                 1111111111111111               ");
+                    labyrinth.push("                   111111111111                 ");
+                    labyrinth.push("                     11111111                   ");
+                    labyrinth.push("                      111111                    ");
+                    labyrinth.push("                        11                      ");
+                    labyrinth.push(" ");
+                    labyrinth.push("             1111111111  11111111111            ");
+                    labyrinth.push("             1111        111     111            ");
+                    labyrinth.push("   1111111   1111        11111111111   1111111  ");
+                    labyrinth.push("             1111        111     111            ");
+                    labyrinth.push("             11111111111 111     111            ");
+                    labyrinth.push(" ");
+                    labyrinth.push(" ");
+                    //              123456789012345678901234567890123456789012345678
+                    //                       1         2         3         4
+                    break;
+            }
             var line_counter = 1;
             var pos_y = 0;
             labyrinth.forEach(function (map) {
@@ -231,4 +306,30 @@ var scenes;
     }(objects.Scene));
     scenes.PlayScene1 = PlayScene1;
 })(scenes || (scenes = {}));
+// labyrinth.push("                                              ")  
+// labyrinth.push("                                              ")  
+// labyrinth.push("  1111111111111   1111111111111  11111111111  ")  
+// labyrinth.push("  1                           1  1         1  ")
+// labyrinth.push("  1                           1  1  11111  1  ")
+// labyrinth.push("  1  1  11111111111111111     1  1  1   1  1  ")
+// labyrinth.push("  1  1          1             1  1  1      1  ")
+// labyrinth.push("  1  1          1             1  1  1   1  1  ")
+// labyrinth.push("  1  11111      1      11111  1  1  1   1  1  ")
+// labyrinth.push("     1       1111111                1   1     ")
+// labyrinth.push("     1          1                   1   1     ")
+// labyrinth.push("     1          1             1  1  1   1  1  ")
+// labyrinth.push("  1  1  111111     111111     1  1  1   1  1  ")
+// labyrinth.push("  1  1                        1  1  1   1  1  ")
+// labyrinth.push("  1  1                        1  1  1   1  1  ")
+// labyrinth.push("  1  1  11111111111111111     1  1      1  1  ")
+// labyrinth.push("  1                           1  1  11111  1  ")
+// labyrinth.push("  1                           1  1         1  ")
+// labyrinth.push("  1111111111111   1111111111111  11111111111  ")  
+// labyrinth.push("  1111111111111   1111111111111  11111111111  ")  
+// labyrinth.push("  1111111111111   1111111111111  11111111111  ")  
+// labyrinth.push("  1111111111111   1111111111111  11111111111  ")  
+// labyrinth.push("  1111111111111   1111111111111  11111111111  ")  
+// labyrinth.push("  1111111111111   1111111111111  11111111111  ")  
+// labyrinth.push("                                              ")  
+// labyrinth.push("  1111111111111   1111111111111  11111111111  ")  
 //# sourceMappingURL=play1.js.map
