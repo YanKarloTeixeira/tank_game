@@ -77,7 +77,6 @@ module scenes {
 
     public Update(): void {
 
-      // this.supportLabels();
       this._newTank1.UpdateTank();
       this._newTank2.UpdateTank();
 
@@ -87,11 +86,11 @@ module scenes {
       this._scoreBoard.setFuel(this._newTank1.fuel, this._newTank2.fuel);
       this._scoreBoard.setHealth(this._newTank1.health, this._newTank2.health);
       this._scoreBoard.setScore(this._newTank1.score, this._newTank2.score);
-      //this.bullets_tank1_update();
-
+      
       // If lives fall below 0 swith to game over scene
       if(this._newTank1.health <= 0 || this._newTank2.health <= 0){
         objects.Game.currentScene = config.Scene.PLAY2;
+       
       }
 
     }
@@ -99,7 +98,7 @@ module scenes {
     // This is where the fun happens
     public Main(): void {
 
-
+      createjs.Sound.play("battle",{loop:-1});
       this.addChild(this._terrain1);
       this.addChild(this._terrain2);
       this.addChild(this._terrain3);
@@ -131,7 +130,7 @@ module scenes {
       // add the tank to the scene
       this.addChild(this._newTank1);
       this.addChild(this._newTank2);
-      createjs.Sound.play("battle",{loop:-1});
+      
       
     }
 
@@ -210,42 +209,57 @@ module scenes {
 
     }
     private setLabyrinth2(tp :number = 1):void{
-      let quadrant_width : number = 46; 
-      let quadrant_height : number = 36;
+      let labirinth_total_horizontal_tiles = 46;
+      let labirinth_total_vertica_tiles = 25;
+      let tile_width : number = 30; 
+      let tile_height : number = 30;
       let labyrinth : Array<string> = new Array<string>();
-      //                       1         2         3
-      //              123456789012345678901234567890
-      labyrinth.push("  1111111111111   1111111111111  ")  
-      labyrinth.push("  1                           1  ")
-      labyrinth.push("  1                           1  ")
-      labyrinth.push("  1  1  11111111111111111  1  1  ")
-      labyrinth.push("  1  1          1          1  1  ")
-      labyrinth.push("  1  1          1          1  1  ")
-      labyrinth.push("  1  11111      1      11111  1  ")
-      labyrinth.push("     1       1111111       1     ")
-      labyrinth.push("     1          1          1     ")
-      labyrinth.push("     1          1          1     ")
-      labyrinth.push("  1  1  111111     111111  1  1  ")
-      labyrinth.push("  1  1                     1  1  ")
-      labyrinth.push("  1  1                     1  1  ")
-      labyrinth.push("  1  1  11111111111111111  1  1  ")
-      labyrinth.push("  1                           1  ")
-      labyrinth.push("  1                           1  ")
-      labyrinth.push("  1111111111111   1111111111111  ")  
-      //              123456789012345678901234567890
-      //                       1         2         3
+      //                       1         2         3         4
+      //              123456789012345678901234567890123456789012345678
+      labyrinth.push("                                              ")  
+      labyrinth.push("                                              ")  
+      labyrinth.push("  1111111111111   1111111111111  11111111111  ")  
+      labyrinth.push("  1                           1  1         1  ")
+      labyrinth.push("  1                           1  1  11111  1  ")
+      labyrinth.push("  1  1  11111111111111111     1  1  1   1  1  ")
+      labyrinth.push("  1  1          1             1  1  1      1  ")
+      labyrinth.push("  1  1          1             1  1  1   1  1  ")
+      labyrinth.push("  1  11111      1      11111  1  1  1   1  1  ")
+      labyrinth.push("     1       1111111                1   1     ")
+      labyrinth.push("     1          1                   1   1     ")
+      labyrinth.push("     1          1             1  1  1   1  1  ")
+      labyrinth.push("  1  1  111111     111111     1  1  1   1  1  ")
+      labyrinth.push("  1  1                        1  1  1   1  1  ")
+      labyrinth.push("  1  1                        1  1  1   1  1  ")
+      labyrinth.push("  1  1  11111111111111111     1  1      1  1  ")
+      labyrinth.push("  1                           1  1  11111  1  ")
+      labyrinth.push("  1                           1  1         1  ")
+      labyrinth.push("  1111111111111   1111111111111  11111111111  ")  
+      labyrinth.push("  1111111111111   1111111111111  11111111111  ")  
+      labyrinth.push("  1111111111111   1111111111111  11111111111  ")  
+      labyrinth.push("  1111111111111   1111111111111  11111111111  ")  
+      labyrinth.push("  1111111111111   1111111111111  11111111111  ")  
+      labyrinth.push("  1111111111111   1111111111111  11111111111  ")  
+      labyrinth.push("                                              ")  
+      labyrinth.push("  1111111111111   1111111111111  11111111111  ")  
+      //              123456789012345678901234567890123456789012345678
+      //                       1         2         3         4
 
       let line_counter : number =1
+      let pos_y =0;
       labyrinth.forEach(map =>{
         let pos : number =0;
-        let pos_x : number =1;
+        let pos_x : number =0;
+
         for(pos; pos<map.length; pos++){
           if(map.substr(pos,1)=="1"){
-            this._labyrinth.push(new objects.Barrier(this.assetManager, (pos)*quadrant_width+10, line_counter*quadrant_height+64 ))
+            // this._labyrinth.push(new objects.Barrier(this.assetManager, (pos)*tile_width, line_counter*tile_height+64 ))
+            this._labyrinth.push(new objects.Barrier(this.assetManager, pos_x, pos_y ));
           }
+          pos_x +=tile_width; 
         }
-        line_counter++;
-        
+        line_counter++; 
+        pos_y += tile_height;
       });
       
 

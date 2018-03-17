@@ -102,7 +102,7 @@ var scenes;
             // add the tank to the scene
             this.addChild(this._newTank1);
             this.addChild(this._newTank2);
-            createjs.Sound.play("battle", { loop: -1 });
+            // createjs.Sound.play("battle",{loop:-1});
         };
         PlayScene3.prototype.setLabyrinth = function (tp) {
             if (tp === void 0) { tp = 1; }

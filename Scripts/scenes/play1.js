@@ -59,7 +59,6 @@ var scenes;
             this.Main();
         };
         PlayScene1.prototype.Update = function () {
-            // this.supportLabels();
             this._newTank1.UpdateTank();
             this._newTank2.UpdateTank();
             this._powerup1.Update();
@@ -67,7 +66,6 @@ var scenes;
             this._scoreBoard.setFuel(this._newTank1.fuel, this._newTank2.fuel);
             this._scoreBoard.setHealth(this._newTank1.health, this._newTank2.health);
             this._scoreBoard.setScore(this._newTank1.score, this._newTank2.score);
-            //this.bullets_tank1_update();
             // If lives fall below 0 swith to game over scene
             if (this._newTank1.health <= 0 || this._newTank2.health <= 0) {
                 objects.Game.currentScene = config.Scene.PLAY2;
@@ -76,6 +74,7 @@ var scenes;
         // This is where the fun happens
         PlayScene1.prototype.Main = function () {
             var _this = this;
+            createjs.Sound.play("battle", { loop: -1 });
             this.addChild(this._terrain1);
             this.addChild(this._terrain2);
             this.addChild(this._terrain3);
@@ -102,7 +101,6 @@ var scenes;
             // add the tank to the scene
             this.addChild(this._newTank1);
             this.addChild(this._newTank2);
-            createjs.Sound.play("battle", { loop: -1 });
         };
         PlayScene1.prototype.setLabyrinth = function (tp) {
             if (tp === void 0) { tp = 1; }
@@ -178,40 +176,55 @@ var scenes;
         PlayScene1.prototype.setLabyrinth2 = function (tp) {
             var _this = this;
             if (tp === void 0) { tp = 1; }
-            var quadrant_width = 46;
-            var quadrant_height = 36;
+            var labirinth_total_horizontal_tiles = 46;
+            var labirinth_total_vertica_tiles = 25;
+            var tile_width = 30;
+            var tile_height = 30;
             var labyrinth = new Array();
-            //                       1         2         3
-            //              123456789012345678901234567890
-            labyrinth.push("  1111111111111   1111111111111  ");
-            labyrinth.push("  1                           1  ");
-            labyrinth.push("  1                           1  ");
-            labyrinth.push("  1  1  11111111111111111  1  1  ");
-            labyrinth.push("  1  1          1          1  1  ");
-            labyrinth.push("  1  1          1          1  1  ");
-            labyrinth.push("  1  11111      1      11111  1  ");
-            labyrinth.push("     1       1111111       1     ");
-            labyrinth.push("     1          1          1     ");
-            labyrinth.push("     1          1          1     ");
-            labyrinth.push("  1  1  111111     111111  1  1  ");
-            labyrinth.push("  1  1                     1  1  ");
-            labyrinth.push("  1  1                     1  1  ");
-            labyrinth.push("  1  1  11111111111111111  1  1  ");
-            labyrinth.push("  1                           1  ");
-            labyrinth.push("  1                           1  ");
-            labyrinth.push("  1111111111111   1111111111111  ");
-            //              123456789012345678901234567890
-            //                       1         2         3
+            //                       1         2         3         4
+            //              123456789012345678901234567890123456789012345678
+            labyrinth.push("                                              ");
+            labyrinth.push("                                              ");
+            labyrinth.push("  1111111111111   1111111111111  11111111111  ");
+            labyrinth.push("  1                           1  1         1  ");
+            labyrinth.push("  1                           1  1  11111  1  ");
+            labyrinth.push("  1  1  11111111111111111     1  1  1   1  1  ");
+            labyrinth.push("  1  1          1             1  1  1      1  ");
+            labyrinth.push("  1  1          1             1  1  1   1  1  ");
+            labyrinth.push("  1  11111      1      11111  1  1  1   1  1  ");
+            labyrinth.push("     1       1111111                1   1     ");
+            labyrinth.push("     1          1                   1   1     ");
+            labyrinth.push("     1          1             1  1  1   1  1  ");
+            labyrinth.push("  1  1  111111     111111     1  1  1   1  1  ");
+            labyrinth.push("  1  1                        1  1  1   1  1  ");
+            labyrinth.push("  1  1                        1  1  1   1  1  ");
+            labyrinth.push("  1  1  11111111111111111     1  1      1  1  ");
+            labyrinth.push("  1                           1  1  11111  1  ");
+            labyrinth.push("  1                           1  1         1  ");
+            labyrinth.push("  1111111111111   1111111111111  11111111111  ");
+            labyrinth.push("  1111111111111   1111111111111  11111111111  ");
+            labyrinth.push("  1111111111111   1111111111111  11111111111  ");
+            labyrinth.push("  1111111111111   1111111111111  11111111111  ");
+            labyrinth.push("  1111111111111   1111111111111  11111111111  ");
+            labyrinth.push("  1111111111111   1111111111111  11111111111  ");
+            labyrinth.push("                                              ");
+            labyrinth.push("  1111111111111   1111111111111  11111111111  ");
+            //              123456789012345678901234567890123456789012345678
+            //                       1         2         3         4
             var line_counter = 1;
+            var pos_y = 0;
             labyrinth.forEach(function (map) {
                 var pos = 0;
-                var pos_x = 1;
+                var pos_x = 0;
                 for (pos; pos < map.length; pos++) {
                     if (map.substr(pos, 1) == "1") {
-                        _this._labyrinth.push(new objects.Barrier(_this.assetManager, (pos) * quadrant_width + 10, line_counter * quadrant_height + 64));
+                        // this._labyrinth.push(new objects.Barrier(this.assetManager, (pos)*tile_width, line_counter*tile_height+64 ))
+                        _this._labyrinth.push(new objects.Barrier(_this.assetManager, pos_x, pos_y));
                     }
+                    pos_x += tile_width;
                 }
                 line_counter++;
+                pos_y += tile_height;
             });
         };
         return PlayScene1;

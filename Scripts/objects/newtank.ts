@@ -25,7 +25,8 @@ module objects {
 
         // Constructor
         constructor(assetManager: createjs.LoadQueue, tankNumber : number,  x:number , y:number, ammoQty:number ) {
-                    super(assetManager, "tank");
+            
+                    super(assetManager, tankNumber==1?"tank1":"tank2");
             this.assetManager = assetManager;
             this.x=x;
             this.y=y;
@@ -103,7 +104,8 @@ module objects {
     
         // move the object to some new location
         public Move():void {
-            let pace = 5;
+            createjs.Sound.play("tank_engine_short");
+            let pace = 2.5;
             if(this.fuel <= 0){
                 pace = 0;
             }
@@ -186,6 +188,7 @@ module objects {
                     for(bullet of this._bullets){
                         if(!bullet.isFired){
                             bullet.fire(this.x , this.y,this.getAngle());
+                            createjs.Sound.play("tank_fire_1");
                             break;
                         }
                     }

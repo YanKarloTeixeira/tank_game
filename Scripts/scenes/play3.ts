@@ -13,7 +13,7 @@ module scenes {
       public _labyrinth: Array<objects.Barrier> ;
       public _powerup1:objects.PowerUp;
       public _powerup2:objects.PowerUp;
-  
+      public _sound : createjs.Sound;
           // Constructor
       constructor(assetManager: createjs.LoadQueue) {
         super(assetManager);
@@ -93,6 +93,7 @@ module scenes {
         // If lives fall below 0 swith to game over scene
         if(this._newTank1.health <= 0 || this._newTank2.health <= 0){
           objects.Game.currentScene = config.Scene.OVER;
+          
         }
   
       }
@@ -100,7 +101,8 @@ module scenes {
       // This is where the fun happens
       public Main(): void {
   
-  
+       
+       
         this.addChild(this._terrain1);
         this.addChild(this._terrain2);
         this.addChild(this._terrain3);
@@ -132,8 +134,7 @@ module scenes {
         // add the tank to the scene
         this.addChild(this._newTank1);
         this.addChild(this._newTank2);
-        createjs.Sound.play("battle",{loop:-1});
-        
+        // createjs.Sound.play("battle",{loop:-1});
       }
   
       private setLabyrinth(tp :number = 1):void{
