@@ -1,3 +1,32 @@
+html{
+  background-color: #000000;
+}
+
 #canvas {
-  border: 1px black dotted
+  margin-left: 10%;
+  border: 1px white dotted;
+}
+#score{
+  border: 1px white dotted;
+  color: white;
+  width: 1500px;
+  height: 65px;
+  margin-left: 10%;
+  font-family: 'Courier New', Courier, monospace
+}
+
+#score_player1{
+  float: left;
+  width: 50%;
+  text-decoration-style:double;
+  font-size: 20px; 
+  font-weight: bolder;
+}
+
+#score_player2{
+  float: right;
+  width: 49,99%;
+  text-align: left;  
+  font-size: 20px; 
+  font-weight: bolder;
 }

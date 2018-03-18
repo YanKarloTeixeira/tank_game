@@ -20,11 +20,11 @@ module scenes {
     }
 
 
-    // Public Methods
+    // Public Methods 
 
     // Initialize Game Variables and objects
     public Start(): void {
-      this._overLabel = new objects.Label("Game Over", "80px", "Consolas", "#000000", 750, 250, true);
+      this._overLabel = new objects.Label("Game Over", "80px", "Consolas", "#ffffff", 750, 250, true);
       this._backButton = new objects.Button(this.assetManager, "backButton", 750, 500);
       this._scoreboard = new managers.ScoreBoard();
 
