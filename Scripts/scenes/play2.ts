@@ -114,7 +114,7 @@ module scenes {
         score.innerHTML = this._newTank2.score.toString() ;
         
         // If lives fall below 0 swith to game over scene
-        if(this._newTank1.health <= 0 || this._newTank2.health <= 0){
+        if(this._newTank1.health <= 0 || this._newTank2.health <= 0 || (this._newTank1.fuel==0 && this._newTank2.fuel==0) ){
           objects.Game.currentScene = config.Scene.PLAY3;
          
         }

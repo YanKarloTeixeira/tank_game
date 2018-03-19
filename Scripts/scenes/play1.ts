@@ -12,7 +12,6 @@ module scenes {
     public _labyrinth: Array<objects.Barrier> ;
     public _powerup1:objects.PowerUp;
     public _powerup2:objects.PowerUp;
-    
 
     // Constructor
     constructor(assetManager: createjs.LoadQueue) {
@@ -77,6 +76,7 @@ module scenes {
       objects.Game.scoreBoard.setHealth(this._newTank1.health, this._newTank2.health);
       objects.Game.scoreBoard.setScore(this._newTank1.score, this._newTank2.score);
 
+      
       this.Main();
     }
 
@@ -114,9 +114,8 @@ module scenes {
 
 
       // If lives fall below 0 swith to game over scene
-      if(this._newTank1.health <= 0 || this._newTank2.health <= 0){
+      if(this._newTank1.health <= 0 || this._newTank2.health <= 0 || (this._newTank1.fuel==0 && this._newTank2.fuel==0) ){
         objects.Game.currentScene = config.Scene.PLAY2;
-       
       }
 
     }
@@ -167,8 +166,6 @@ module scenes {
       // add the tank to the scene
       this.addChild(this._newTank1);
       this.addChild(this._newTank2);
-      
-      
     }
 
 

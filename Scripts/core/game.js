@@ -13,9 +13,9 @@
     var keyboardManager;
     assetManifest = [
         { id: "clickMeButton", src: "./Assets/images/clickMeButton.png" },
-        { id: "startButton", src: "./Assets/images/startButton.png" },
+        { id: "startButton", src: "./Assets/images/start_button_yellow.png" },
         { id: "nextButton", src: "./Assets/images/nextButton.png" },
-        { id: "backButton", src: "./Assets/images/backButton.png" },
+        { id: "backButton", src: "./Assets/images/replay.png" },
         { id: "bullet", src: "./Assets/images/bullet_small.png" },
         { id: "tank1", src: "./Assets/images/tank_green_1.png" },
         { id: "tank2", src: "./Assets/images/tank_blue_1.png" },
