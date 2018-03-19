@@ -77,6 +77,15 @@
             case config.Scene.OVER:
                 currentScene = new scenes.OverScene(assetManager);
                 break;
+            case config.Scene.ROUND1:
+                currentScene = new scenes.RoundInformScene(assetManager, 1);
+                break;
+            case config.Scene.ROUND2:
+                currentScene = new scenes.RoundInformScene(assetManager, 2);
+                break;
+            case config.Scene.ROUND3:
+                currentScene = new scenes.RoundInformScene(assetManager, 3);
+                break;
         }
         currentState = objects.Game.currentScene;
         stage.addChild(currentScene);

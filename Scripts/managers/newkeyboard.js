@@ -3,6 +3,11 @@ var managers;
     var NewKeyboard = /** @class */ (function () {
         // constructors
         function NewKeyboard(up, down, left, right, fire) {
+            if (up === void 0) { up = config.KeyCode.Up_Arrow; }
+            if (down === void 0) { down = config.KeyCode.Down_Arrow; }
+            if (left === void 0) { left = config.KeyCode.Left_Arrow; }
+            if (right === void 0) { right = config.KeyCode.Right_Arrow; }
+            if (fire === void 0) { fire = config.KeyCode.Space_Bar; }
             this.enabled = true;
             document.addEventListener('keydown', this.onKeyDown.bind(this), false);
             document.addEventListener('keyup', this.onKeyUp.bind(this), false);
@@ -29,6 +34,7 @@ var managers;
                     this.shoot = true;
                     break;
             }
+            this.anyKey = true;
         };
         NewKeyboard.prototype.onKeyUp = function (event) {
             switch (event.keyCode) {
@@ -48,6 +54,7 @@ var managers;
                     this.shoot = false;
                     break;
             }
+            this.anyKey = false;
         };
         return NewKeyboard;
     }());

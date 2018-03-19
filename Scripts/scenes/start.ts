@@ -28,7 +28,7 @@ module scenes {
 
     // Private Mathods
     private _startButtonClick():void {
-      objects.Game.currentScene = config.Scene.PLAY1;
+      objects.Game.currentScene = config.Scene.ROUND1;
     }
 
 

@@ -79,19 +79,28 @@
     switch(objects.Game.currentScene) {
       case config.Scene.START:
         currentScene = new scenes.StartScene(assetManager);
-        break;
+      break;
       case config.Scene.PLAY1:
         currentScene = new scenes.PlayScene1(assetManager);
-        break;
+      break;
       case config.Scene.PLAY2:
         currentScene = new scenes.PlayScene2(assetManager);
-        break;
+      break;
       case config.Scene.PLAY3:
         currentScene = new scenes.PlayScene3(assetManager);
-        break;
+      break;
       case config.Scene.OVER:
         currentScene = new scenes.OverScene(assetManager);
-        break;
+      break;
+      case config.Scene.ROUND1:
+        currentScene = new scenes.RoundInformScene(assetManager,1);
+      break;
+      case config.Scene.ROUND2:
+        currentScene = new scenes.RoundInformScene(assetManager,2);
+      break;
+      case config.Scene.ROUND3:
+        currentScene = new scenes.RoundInformScene(assetManager,3);
+      break;
     }
 
     currentState = objects.Game.currentScene;
