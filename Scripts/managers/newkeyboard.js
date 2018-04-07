@@ -33,6 +33,12 @@ var managers;
                 case this.controlSet.SHOOT:
                     this.shoot = true;
                     break;
+                case config.KeyCode.Pause_Break:
+                    this.paused = true;
+                    break;
+                case config.KeyCode.Escape:
+                    this.escape = true;
+                    break;
             }
             this.anyKey = true;
         };
@@ -52,6 +58,12 @@ var managers;
                     break;
                 case this.controlSet.SHOOT:
                     this.shoot = false;
+                    break;
+                case config.KeyCode.Pause_Break:
+                    this.paused = false;
+                    break;
+                case config.KeyCode.Escape:
+                    this.escape = false;
                     break;
             }
             this.anyKey = false;

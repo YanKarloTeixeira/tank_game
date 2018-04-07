@@ -15,13 +15,23 @@ var scenes;
         // Constructor
         function PlayScene1(assetManager) {
             var _this = _super.call(this, assetManager) || this;
+            // public _popUpSpeed1:objects.PopUp;
+            // public _popUpSpeed2:objects.PopUp;
+            _this._popUpLandMines = new Array();
+            _this.LandMinesQty = 15;
+            _this._pauseButton = new objects.Button(_this.assetManager, "pause_button", -300, -300);
             _this.Start();
             return _this;
         }
+        PlayScene1.prototype._pauseButtonClick = function () {
+            this.unpause();
+        };
         // Private Mathods
         // Public Methods
         // Initialize Game Variables and objects
         PlayScene1.prototype.Start = function () {
+            this._key = new managers.NewKeyboard();
+            this._gamepaused = false;
             // Terrain to cover the canvas (It is temporally)
             this._terrain1 = new objects.Terrain(this.assetManager, "terrain1");
             this._terrain2 = new objects.Terrain(this.assetManager, "terrain1");
@@ -38,17 +48,30 @@ var scenes;
             this._labyrinth = new Array();
             this.setLabyrinth2();
             //Players
-            this._newTank1 = new objects.NewTank(this.assetManager, 1, 770, 5, 2);
-            this._newTank2 = new objects.NewTank(this.assetManager, 2, 770, 820, 2);
-            this._powerup1 = new objects.PowerUp(this.assetManager);
-            this._powerup2 = new objects.PowerUp(this.assetManager);
+            this._newTank1 = new objects.NewTank(this.assetManager, 1, 770, 5, 6);
+            this._newTank2 = new objects.NewTank(this.assetManager, 2, 770, 820, 6);
+            this._popUpOil1 = new objects.PopUp(this.assetManager, "popUpOil", "popUpOil");
+            this._popUpOil2 = new objects.PopUp(this.assetManager, "popUpOil", "popUpOil");
+            this._popUpLife1 = new objects.PopUp(this.assetManager, "popUpLife", "popUpLife");
+            this._popUpLife2 = new objects.PopUp(this.assetManager, "popUpLife", "popUpLife");
+            this._popUpLife1 = new objects.PopUp(this.assetManager, "popUpSpeed", "popUpSpeed");
+            this._popUpLife2 = new objects.PopUp(this.assetManager, "popUpSpeed", "popUpSpeed");
+            var i = 0;
+            for (i; i < this.LandMinesQty; i++) {
+                this._popUpLandMines.push(new objects.PopUp(this.assetManager, "popUpLandMine", "popUpLandMine"));
+            }
             // create scoreboard UI for scene
             this._scoreBoard = new managers.ScoreBoard();
             var objectsMap = new Array();
             objectsMap.push(this._newTank1);
             objectsMap.push(this._newTank2);
-            objectsMap.push(this._powerup1);
-            objectsMap.push(this._powerup2);
+            objectsMap.push(this._popUpOil1);
+            objectsMap.push(this._popUpOil2);
+            objectsMap.push(this._popUpLife1);
+            objectsMap.push(this._popUpLife2);
+            this._popUpLandMines.forEach(function (landMine) {
+                objectsMap.push(landMine);
+            });
             this._labyrinth.forEach(function (barrier) {
                 objectsMap.push(barrier);
             });
@@ -63,10 +86,21 @@ var scenes;
             this.Main();
         };
         PlayScene1.prototype.Update = function () {
+            if (this._key.paused)
+                this.pause();
+            if (this._key.escape)
+                this.unpause();
+            if (this._gamepaused)
+                return;
             this._newTank1.UpdateTank();
             this._newTank2.UpdateTank();
-            this._powerup1.Update();
-            this._powerup2.Update();
+            this._popUpOil1.Update();
+            this._popUpOil2.Update();
+            this._popUpLife1.Update();
+            this._popUpLife2.Update();
+            this._popUpLandMines.forEach(function (landMine) {
+                landMine.Update();
+            });
             objects.Game.scoreBoard.setFuel(this._newTank1.fuel, this._newTank2.fuel);
             objects.Game.scoreBoard.setHealth(this._newTank1.health, this._newTank2.health);
             objects.Game.scoreBoard.setScore(this._newTank1.score, this._newTank2.score);
@@ -90,6 +124,7 @@ var scenes;
             // If lives fall below 0 swith to game over scene
             if (this._newTank1.health <= 0 || this._newTank2.health <= 0 || (this._newTank1.fuel == 0 && this._newTank2.fuel == 0)) {
                 objects.Game.currentScene = config.Scene.ROUND2;
+                createjs.Sound.play("round_end_snd");
             }
         };
         // This is where the fun happens
@@ -106,19 +141,6 @@ var scenes;
             this._labyrinth.forEach(function (barrier) {
                 _this.addChild(barrier);
             });
-            // add scoreboard labels to the scene
-            // this.addChild(this._scoreBoard._player1_HealthLabel);
-            // this.addChild(this._scoreBoard._player1_ScoreLabel);
-            // this.addChild(this._scoreBoard._player1_FuelLabel);
-            // this.addChild(this._scoreBoard._player2_HealthLabel);
-            // this.addChild(this._scoreBoard._player2_ScoreLabel);
-            // this.addChild(this._scoreBoard._player2_FuelLabel);
-            // this.addChild(objects.Game.scoreBoard._player1_HealthLabel);
-            // this.addChild(objects.Game.scoreBoard._player1_ScoreLabel);
-            // this.addChild(objects.Game.scoreBoard._player1_FuelLabel);
-            // this.addChild(objects.Game.scoreBoard._player2_HealthLabel);
-            // this.addChild(objects.Game.scoreBoard._player2_ScoreLabel);
-            // this.addChild(objects.Game.scoreBoard._player2_FuelLabel);
             // Add each bullet on the screen
             this._newTank1._bullets.forEach(function (bullet) {
                 _this.addChild(bullet);
@@ -126,11 +148,31 @@ var scenes;
             this._newTank2._bullets.forEach(function (bullet) {
                 _this.addChild(bullet);
             });
-            this.addChild(this._powerup1);
-            this.addChild(this._powerup2);
+            this.addChild(this._popUpOil1);
+            this.addChild(this._popUpOil2);
+            this.addChild(this._popUpLife1);
+            this.addChild(this._popUpLife2);
+            // this.addChild(this._popUpSpeed1);
+            // this.addChild(this._popUpSpeed2);
+            this._popUpLandMines.forEach(function (landMine) {
+                _this.addChild(landMine);
+            });
             // add the tank to the scene
             this.addChild(this._newTank1);
             this.addChild(this._newTank2);
+            this.addChild(this._pauseButton);
+            this._pauseButton.on("pause", this._pauseButtonClick);
+            this._pauseButton.on("pause", this._pauseButtonClick);
+        };
+        PlayScene1.prototype.pause = function () {
+            this._gamepaused = true;
+            this._pauseButton.x = 750;
+            this._pauseButton.y = 400;
+        };
+        PlayScene1.prototype.unpause = function () {
+            this._gamepaused = false;
+            this._pauseButton.x = -300;
+            this._pauseButton.y = -300;
         };
         PlayScene1.prototype.setLabyrinth2 = function (tp) {
             var _this = this;
@@ -147,10 +189,10 @@ var scenes;
                     labyrinth.push(" ");
                     labyrinth.push(" ");
                     labyrinth.push("  11111   11111  11 11  11111  11111  11111  11111");
-                    labyrinth.push("  1       1   1  1 1 1  1   1      1  1   1  1     ");
-                    labyrinth.push("  1       1   1  1   1  11111  11111  11111  11111");
+                    labyrinth.push("  1       1   1  1 1 1  1   1      1  1   1      1");
+                    labyrinth.push("  1       1   1  1   1  11111  11111  11111      1");
                     labyrinth.push("  1       1   1  1   1  1          1      1      1");
-                    labyrinth.push("  11111   11111  1   1  1      11111  11111  11111");
+                    labyrinth.push("  11111   11111  1   1  1      11111  11111      1");
                     labyrinth.push("");
                     labyrinth.push("");
                     labyrinth.push("  1     1  111111  11111  11111  1  11111  11111  ");
@@ -239,13 +281,16 @@ var scenes;
             }
             var line_counter = 1;
             var pos_y = 0;
+            var barrierImageSequence;
             labyrinth.forEach(function (map) {
                 var pos = 0;
                 var pos_x = 0;
                 for (pos; pos < map.length; pos++) {
                     if (map.substr(pos, 1) == "1") {
-                        // this._labyrinth.push(new objects.Barrier(this.assetManager, (pos)*tile_width, line_counter*tile_height+64 ))
-                        _this._labyrinth.push(new objects.Barrier(_this.assetManager, pos_x, pos_y));
+                        if (Math.random() <= 0.8)
+                            _this._labyrinth.push(new objects.Barrier(_this.assetManager, "barrier", pos_x, pos_y, true));
+                        else
+                            _this._labyrinth.push(new objects.Barrier(_this.assetManager, "barrier_undestructible", pos_x, pos_y, false));
                     }
                     pos_x += tile_width;
                 }
