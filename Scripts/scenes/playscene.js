@@ -10,31 +10,47 @@ var __extends = (this && this.__extends) || (function () {
 })();
 var scenes;
 (function (scenes) {
-    var PlayScene2 = /** @class */ (function (_super) {
-        __extends(PlayScene2, _super);
+    var PlayScene = /** @class */ (function (_super) {
+        __extends(PlayScene, _super);
         // Constructor
-        function PlayScene2(assetManager) {
+        function PlayScene(assetManager, sceneNumber) {
             var _this = _super.call(this, assetManager) || this;
             _this._popUpLandMines = new Array();
             _this.LandMinesQty = 15;
             _this._pauseButton = new objects.Button(_this.assetManager, "pause_button", -300, -300);
+            // Terrain to cover the canvas (It is temporally)
+            switch (sceneNumber) {
+                case 1:
+                    _this._terrain1 = new objects.Terrain(_this.assetManager, "terrain1");
+                    _this._terrain2 = new objects.Terrain(_this.assetManager, "terrain1");
+                    _this._terrain3 = new objects.Terrain(_this.assetManager, "terrain1");
+                    _this._terrain4 = new objects.Terrain(_this.assetManager, "terrain1");
+                    break;
+                case 2:
+                    _this._terrain1 = new objects.Terrain(_this.assetManager, "terrain2");
+                    _this._terrain2 = new objects.Terrain(_this.assetManager, "terrain2");
+                    _this._terrain3 = new objects.Terrain(_this.assetManager, "terrain2");
+                    _this._terrain4 = new objects.Terrain(_this.assetManager, "terrain2");
+                    break;
+                case 3:
+                    _this._terrain1 = new objects.Terrain(_this.assetManager, "terrain3");
+                    _this._terrain2 = new objects.Terrain(_this.assetManager, "terrain3");
+                    _this._terrain3 = new objects.Terrain(_this.assetManager, "terrain3");
+                    _this._terrain4 = new objects.Terrain(_this.assetManager, "terrain3");
+                    break;
+            }
             _this.Start();
             return _this;
         }
-        PlayScene2.prototype._pauseButtonClick = function () {
+        PlayScene.prototype._pauseButtonClick = function () {
             this.unpause();
         };
         // Private Mathods
         // Public Methods
         // Initialize Game Variables and objects
-        PlayScene2.prototype.Start = function () {
+        PlayScene.prototype.Start = function () {
             this._key = new managers.NewKeyboard();
             this._gamepaused = false;
-            // Terrain to cover the canvas (It is temporally)
-            this._terrain1 = new objects.Terrain(this.assetManager, "terrain1");
-            this._terrain2 = new objects.Terrain(this.assetManager, "terrain1");
-            this._terrain3 = new objects.Terrain(this.assetManager, "terrain1");
-            this._terrain4 = new objects.Terrain(this.assetManager, "terrain1");
             this._terrain1.x = 0;
             this._terrain1.y = 0;
             this._terrain2.x = this._terrain1.getBounds().width;
@@ -81,7 +97,7 @@ var scenes;
             objects.Game.scoreBoard.setScore(this._newTank1.score, this._newTank2.score);
             this.Main();
         };
-        PlayScene2.prototype.Update = function () {
+        PlayScene.prototype.Update = function () {
             if (this._key.paused)
                 this.pause();
             if (this._key.escape)
@@ -119,12 +135,15 @@ var scenes;
             score.innerHTML = this._newTank2.score.toString();
             // If lives fall below 0 swith to game over scene
             if (this._newTank1.health <= 0 || this._newTank2.health <= 0 || (this._newTank1.fuel == 0 && this._newTank2.fuel == 0)) {
-                objects.Game.currentScene = config.Scene.ROUND3;
+                var transition = new objects.Transition(this.assetManager);
+                this.addChild(transition);
+                transition.Start();
+                objects.Game.currentScene++;
                 createjs.Sound.play("round_end_snd");
             }
         };
         // This is where the fun happens
-        PlayScene2.prototype.Main = function () {
+        PlayScene.prototype.Main = function () {
             var _this = this;
             if (objects.Game.playMusic) {
                 createjs.Sound.play("battle", { loop: -1 });
@@ -144,10 +163,20 @@ var scenes;
             this._newTank2._bullets.forEach(function (bullet) {
                 _this.addChild(bullet);
             });
+            this.addChild(this._newTank1.statusBackgroud);
+            this.addChild(this._newTank1.statusBackgroud.statusHealth);
+            this.addChild(this._newTank1.statusBackgroud.statusFuel);
+            this.addChild(this._newTank1.scoreStatus);
+            this.addChild(this._newTank2.statusBackgroud);
+            this.addChild(this._newTank2.statusBackgroud.statusHealth);
+            this.addChild(this._newTank2.statusBackgroud.statusFuel);
+            this.addChild(this._newTank2.scoreStatus);
             this.addChild(this._popUpOil1);
             this.addChild(this._popUpOil2);
             this.addChild(this._popUpLife1);
             this.addChild(this._popUpLife2);
+            // this.addChild(this._popUpSpeed1);
+            // this.addChild(this._popUpSpeed2);
             this._popUpLandMines.forEach(function (landMine) {
                 _this.addChild(landMine);
             });
@@ -158,35 +187,38 @@ var scenes;
             this._pauseButton.on("pause", this._pauseButtonClick);
             this._pauseButton.on("pause", this._pauseButtonClick);
         };
-        PlayScene2.prototype.pause = function () {
+        PlayScene.prototype.pause = function () {
             this._gamepaused = true;
             this._pauseButton.x = 750;
             this._pauseButton.y = 400;
         };
-        PlayScene2.prototype.unpause = function () {
+        PlayScene.prototype.unpause = function () {
             this._gamepaused = false;
             this._pauseButton.x = -300;
             this._pauseButton.y = -300;
         };
-        PlayScene2.prototype.setLabyrinth2 = function (tp) {
+        PlayScene.prototype.setLabyrinth2 = function (numberOfLabiryth) {
             var _this = this;
-            if (tp === void 0) { tp = 1; }
+            if (numberOfLabiryth === void 0) { numberOfLabiryth = 1; }
+            numberOfLabiryth = Math.round(Math.random() * 4);
+            if (numberOfLabiryth == 0)
+                numberOfLabiryth = 1;
             var labirinth_total_horizontal_tiles = 46;
             var labirinth_total_vertica_tiles = 25;
             var tile_width = 30;
             var tile_height = 30;
             var labyrinth = new Array();
-            switch (tp) {
+            switch (numberOfLabiryth) {
                 case 1:
                     //                       1         2         3         4
                     //              123456789012345678901234567890123456789012345678
                     labyrinth.push(" ");
                     labyrinth.push(" ");
                     labyrinth.push("  11111   11111  11 11  11111  11111  11111  11111");
-                    labyrinth.push("  1       1   1  1 1 1  1   1      1  1   1  1     ");
-                    labyrinth.push("  1       1   1  1   1  11111  11111  11111  11111");
+                    labyrinth.push("  1       1   1  1 1 1  1   1      1  1   1      1");
+                    labyrinth.push("  1       1   1  1   1  11111  11111  11111      1");
                     labyrinth.push("  1       1   1  1   1  1          1      1      1");
-                    labyrinth.push("  11111   11111  1   1  1      11111  11111  11111");
+                    labyrinth.push("  11111   11111  1   1  1      11111  11111      1");
                     labyrinth.push("");
                     labyrinth.push("");
                     labyrinth.push("  1     1  111111  11111  11111  1  11111  11111  ");
@@ -272,18 +304,50 @@ var scenes;
                     //              123456789012345678901234567890123456789012345678
                     //                       1         2         3         4
                     break;
+                case 4:
+                    //                       1         2         3         4
+                    //              123456789012345678901234567890123456789012345678
+                    labyrinth.push("               1                   1             ");
+                    labyrinth.push("               1            1      1             ");
+                    labyrinth.push("111111  111    1            1      1        1    ");
+                    labyrinth.push("    1     1    1            1               1    ");
+                    labyrinth.push("    1  1  1    1            1               1    ");
+                    labyrinth.push("    1  1  1    1     111111111111111111111111    ");
+                    labyrinth.push("       1  1                                      ");
+                    labyrinth.push("       1  1                                      ");
+                    labyrinth.push("    1  1  1   11111111111111111111111111111111111");
+                    labyrinth.push("    1  1                                         ");
+                    labyrinth.push("    1  1                                         ");
+                    labyrinth.push("    1  111111111111111111111111111   111111111   ");
+                    labyrinth.push("    1                                1           ");
+                    labyrinth.push("    111111111111111111111111111      1           ");
+                    labyrinth.push("    1                                1  111111111");
+                    labyrinth.push("    1         111111111111111111111111           ");
+                    labyrinth.push("    1                                 1           ");
+                    labyrinth.push("                                     1      1    ");
+                    labyrinth.push("111111111111111111111111111          11111111    ");
+                    labyrinth.push("    1                                1           ");
+                    labyrinth.push("    1                                1           ");
+                    labyrinth.push("    1   1111111111111111111111111111111111111    ");
+                    labyrinth.push("              1                 1                ");
+                    labyrinth.push("                                                 ");
+                    labyrinth.push("                 1          1          1         ");
+                    //              123456789012345678901234567890123456789012345678
+                    //                       1         2         3         4
+                    break;
             }
             var line_counter = 1;
             var pos_y = 0;
+            var barrierImageSequence;
             labyrinth.forEach(function (map) {
                 var pos = 0;
                 var pos_x = 0;
+                var barrier;
+                var undestructible_barrier;
+                var destructible;
                 for (pos; pos < map.length; pos++) {
                     if (map.substr(pos, 1) == "1") {
-                        if (Math.random() <= 0.8)
-                            _this._labyrinth.push(new objects.RockBarrier(_this.assetManager, "rock_barrier", pos_x, pos_y, true));
-                        else
-                            _this._labyrinth.push(new objects.RockBarrier(_this.assetManager, "rock_barrier_undestructible", pos_x, pos_y, false));
+                        _this._labyrinth.push(new objects.Barrier(_this.assetManager, objects.Game.currentScene, pos_x, pos_y, Math.random() <= 0.8 ? true : false));
                     }
                     pos_x += tile_width;
                 }
@@ -291,8 +355,8 @@ var scenes;
                 pos_y += tile_height;
             });
         };
-        return PlayScene2;
+        return PlayScene;
     }(objects.Scene));
-    scenes.PlayScene2 = PlayScene2;
+    scenes.PlayScene = PlayScene;
 })(scenes || (scenes = {}));
-//# sourceMappingURL=play2.js.map
+//# sourceMappingURL=playscene.js.map

@@ -13,6 +13,7 @@ module managers{
         public escape: boolean;
         public controlSet :config.Movement;
         public anyKey:boolean;
+        public enter:boolean;
 
         // constructors
         constructor(up:number= config.KeyCode.Up_Arrow, down: number= config.KeyCode.Down_Arrow , left:number= config.KeyCode.Left_Arrow, right:number= config.KeyCode.Right_Arrow, fire:number= config.KeyCode.Space_Bar){
@@ -49,6 +50,9 @@ module managers{
                 case config.KeyCode.Escape:
                     this.escape = true;
                     break;
+                case config.KeyCode.Enter:
+                    this.enter = true;
+                    break;
 
             }
             this.anyKey=true;
@@ -76,6 +80,9 @@ module managers{
                     break;
                 case config.KeyCode.Escape:
                     this.escape = false;
+                    break;
+                case config.KeyCode.Enter:
+                    this.enter = false;
                     break;
             }
             this.anyKey=false;

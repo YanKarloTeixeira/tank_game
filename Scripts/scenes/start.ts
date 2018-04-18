@@ -18,8 +18,8 @@ module scenes {
     public _newTank8: objects.NewTank;
     public _scoreBoard : managers.ScoreBoard;
     public _labyrinth: Array<objects.Barrier> ;
-    public _powerup1:objects.PowerUp;
-    public _powerup2:objects.PowerUp;
+    // public _powerup1:objects.PowerUp;
+    // public _powerup2:objects.PowerUp;
 
     // Public Properties
 
@@ -32,7 +32,10 @@ module scenes {
 
     // Private Mathods
     private _startButtonClick():void {
-      objects.Game.currentScene = config.Scene.ROUND1;
+      objects.Game.currentScene ++;
+      createjs.Sound.play("start");
+
+
     }
 
 
@@ -72,8 +75,9 @@ module scenes {
       this._newTank7 = new objects.NewTank(this.assetManager,1,350,800,2);
       this._newTank8 = new objects.NewTank(this.assetManager,2,1,575,2);
 
-      this._powerup1 = new objects.PowerUp(this.assetManager);
-      this._powerup2 = new objects.PowerUp(this.assetManager);
+      
+      // this._powerup1 = new objects.PowerUp(this.assetManager);
+      // this._powerup2 = new objects.PowerUp(this.assetManager);
 
 
       this.Main();
@@ -111,8 +115,8 @@ module scenes {
         this.addChild(bullet);
       });
 
-      this.addChild(this._powerup1);
-      this.addChild(this._powerup2);
+      // this.addChild(this._powerup1);
+      // this.addChild(this._powerup2);
 
       // add the tank to the scene
       this.addChild(this._newTank1);
@@ -182,7 +186,7 @@ module scenes {
             for(pos; pos<map.length; pos++){
               if(map.substr(pos,1)=="1"){
                 // this._labyrinth.push(new objects.Barrier(this.assetManager, (pos)*tile_width, line_counter*tile_height+64 ))
-                this._labyrinth.push(new objects.Barrier(this.assetManager,"barrier", pos_x, pos_y, false ));
+                this._labyrinth.push(new objects.Barrier(this.assetManager,1, pos_x, pos_y, false ));
               }
               pos_x +=tile_width; 
             }

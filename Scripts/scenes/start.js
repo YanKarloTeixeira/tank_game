@@ -12,6 +12,8 @@ var scenes;
 (function (scenes) {
     var StartScene = /** @class */ (function (_super) {
         __extends(StartScene, _super);
+        // public _powerup1:objects.PowerUp;
+        // public _powerup2:objects.PowerUp;
         // Public Properties
         // Constructor
         function StartScene(assetManager) {
@@ -21,7 +23,8 @@ var scenes;
         }
         // Private Mathods
         StartScene.prototype._startButtonClick = function () {
-            objects.Game.currentScene = config.Scene.ROUND1;
+            objects.Game.currentScene++;
+            createjs.Sound.play("start");
         };
         // Public Methods
         // Initialize Game Variables and objects
@@ -54,8 +57,8 @@ var scenes;
             this._newTank6 = new objects.NewTank(this.assetManager, 2, 925, 800, 2);
             this._newTank7 = new objects.NewTank(this.assetManager, 1, 350, 800, 2);
             this._newTank8 = new objects.NewTank(this.assetManager, 2, 1, 575, 2);
-            this._powerup1 = new objects.PowerUp(this.assetManager);
-            this._powerup2 = new objects.PowerUp(this.assetManager);
+            // this._powerup1 = new objects.PowerUp(this.assetManager);
+            // this._powerup2 = new objects.PowerUp(this.assetManager);
             this.Main();
         };
         StartScene.prototype.Update = function () {
@@ -85,8 +88,8 @@ var scenes;
             this._newTank2._bullets.forEach(function (bullet) {
                 _this.addChild(bullet);
             });
-            this.addChild(this._powerup1);
-            this.addChild(this._powerup2);
+            // this.addChild(this._powerup1);
+            // this.addChild(this._powerup2);
             // add the tank to the scene
             this.addChild(this._newTank1);
             this.addChild(this._newTank2);
@@ -148,7 +151,7 @@ var scenes;
                 for (pos; pos < map.length; pos++) {
                     if (map.substr(pos, 1) == "1") {
                         // this._labyrinth.push(new objects.Barrier(this.assetManager, (pos)*tile_width, line_counter*tile_height+64 ))
-                        _this._labyrinth.push(new objects.Barrier(_this.assetManager, "barrier", pos_x, pos_y, false));
+                        _this._labyrinth.push(new objects.Barrier(_this.assetManager, 1, pos_x, pos_y, false));
                     }
                     pos_x += tile_width;
                 }
